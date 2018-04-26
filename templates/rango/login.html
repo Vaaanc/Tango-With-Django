@@ -1,0 +1,18 @@
+{% extends 'base.html '%}
+
+{% block title %}Rango - Login{%endblock%}
+
+{% block content %}
+<h1>Login to Rango</h1>
+    {% if login_message != '' %}
+        <div class="error-message" style="color:red">{{ login_message }}</div>
+    {% endif %}
+    <form id="login_form" method="post" action="/rango/login/">
+        {% csrf_token %}
+        Username: <input type="text" name="username" value="" size="50" />
+        <br />
+        Password: <input type="password" name="password" value="" size="50" />
+        <br />
+        <input type="submit" value="submit" />
+    </form>
+{% endblock %}

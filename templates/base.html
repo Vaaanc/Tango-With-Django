@@ -1,0 +1,86 @@
+
+<!DOCTYPE html>
+
+{% load static %}
+
+<html lang ="en">
+    <head>
+        <meta charset = "UTF-8">
+        <meta name = "viewport" content = "width=device-width">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+        <!-- Stylesheets -->
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"/>
+        <title>{% block title %}{% endblock %}</title>
+
+    </head>
+    <body>
+        <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/rango/">Rango</a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="{% url 'rango:index' %}">Home</a></li>
+                        <li><a href="{% url 'rango:about'%}">About</a></li>
+                        {% if user.is_authenticated %}
+                        <li><a href="{% url 'rango:profile_page' user %}">Profile</a></li>
+                        <li><a href="{% url 'rango:add_category' %}">Add a New Category</a></li>
+                        <li><a href="{% url 'rango:restricted' %}">Restricted Page</a></li>
+                        <li><a href="{% url 'auth_logout' %}">Logout</a></li>
+                        <li><a href="{% url 'auth_password_change' %}">Change Password</a></li>
+                        {% else %}
+                        <li><a href="{% url 'registration_register' %}">Register Here</a></li>
+                        <li><a href="{% url 'auth_login' %}">Login</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class = "col-sm-3 col-md-3">
+                    <div class ="sidebar">
+                        {% load rango_extras %}
+
+
+                        {% block sidebar %}{% endblock %}
+
+                          <ul class="nav nav-list">
+                          <li class="nav-header">Find a Category</li>
+                          <form>
+                          <label></label>
+                          <li><input  class="search-query span10" type="text" name="suggestion" value="" id="suggestion" /></li>
+                          </form>
+                          </ul>
+
+                          <div id="cats">
+                          </div>
+                          
+                    </div>
+
+                </div>
+                <div class="col-sm-9  col-md-9">
+                    <div class="main">
+                        {% block content %}{% endblock %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+        <script src = "{% static 'js/scripts.js' %}"></script>
+    </body>
+</html>

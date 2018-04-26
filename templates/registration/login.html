@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<h2 class="form-signin-heading">Please sign in</h2>
+
+<form method="post" action=".">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="exampleInputEmail1">Username</label>
+        <input class="form-control" placeholder="Username" id="id_username" maxlength="254" size="50" name="username" type="text" required autofocus=""/>
+    </div>
+    <div class="form-group">
+        <label for="exampleInputEmail1">Password</label>
+        <input type="password" class="form-control" placeholder="Password" id="id_password" name="password"  required />
+    </div>
+    
+    <button class="btn btn-primary " type="submit" value="Submit" >Sign in</button>
+    <input type="hidden" name="next" value="{{ next }}" />
+</form>
+
+<p>Not  a member? <a href="{% url 'registration_register' %}">Register</a>!</p>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Category{% endblock %}
+{% block content %}
+    {% if category %}
+        <h1>{{ category_name }}</h1>
+        {% if user.is_authenticated %}
+        <button type="button" id = like value="like">
+        <a href="{% url 'rango:add_page' category.slug  %}">Add Page</a>
+        {% endif %}
+        {% if pages %}
+            <ul>
+                {% for page in pages %}
+                <li><a href="{% url 'rango:goto' %}?page_id={{page.id}}">{{ page.title }}</a></li>
+                <p>
+
+                <strong id="like_count">{{ category.likes }}</strong> people like this category
+                {% if user.is_authenticated %}
+                        <button id="likes" data-catid="{{category.id}}" class="btn btn-primary" type="button">
+                        <span class="glyphicon glyphicon-thumbs-up"></span>Like
+                        </button>
+                {% endif %}
+                </p>
+                {% endfor %}
+            </ul>
+        {% else %}
+                <strong>No pages currently in category.</strong>
+        {% endif %}
+    {% else %}
+    The specified category {{ category_name }} does not exist!
+    {% endif %}
+{% endblock %}

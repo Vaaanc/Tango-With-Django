@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Home{% endblock %}
+
+
+{% block sidebar %}
+{% endblock %}
+{% block content %}
+    <div class="page-heading">
+        <h1>This is the index page</h1>
+    </div>
+        {% if user.is_authenticated %}
+        <h1>Welcome, {{ user.username }}</h1>
+        {% endif %}
+    <div class = "row">
+        <div class = "col-md-4">
+            {% if categories %}
+            <h3>Top Categories</h3>
+                <ul>
+                    {% for item in categories %}
+                    <!-- Following line changed to add an HTML hyperlink -->
+                    <li><a href="{% url 'rango:category' item.slug %}">{{ item.name }}</a></li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+        <div class = "col-md-pull-1 col-md-4 ">
+            {% if most_viewed_page %}
+            <h3>Most Viewed page</h3>
+            <ul>
+                {% for page in most_viewed_page %}
+                <li><a href="{% url 'rango:goto' %}?page_id={{page.id}}">{{page.title}}</a> {{page.views}} views</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

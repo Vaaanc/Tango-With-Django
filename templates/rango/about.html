@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}About{% endblock %}
+{% block content %}
+        <div class="page-header"><h1>This is the about page</h1></div>
+        <div class="container">
+                <h2>You have visited the site for {{visits}} times</h2>
+
+                <h3>Here's a picture of a cat</h3>
+                <img src ="{% static 'images/cate.jpg' %}" alt = 'cat' />
+        </div>
+        
+{% endblock %}
