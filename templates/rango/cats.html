@@ -1,10 +1,10 @@
 {% if cats %}
     <ul class="nav nav-sidebar">
-        <li><h2>All Categories</h2></li>
+        <li><h2>Seached Categories</h2></li>
     {% for c in cats %}
     {% if c == act_cat %}
-    <li  class="active" > 
-    {% else  %} 
+    <li  class="active" >
+    {% else  %}
     <li>
     {% endif %}
             <a href="{% url 'rango:category'  c.slug %}">{{ c.name }}</a></li>
