@@ -4,35 +4,59 @@
 
 
 {% block sidebar %}
+<div class = "col-md-3">
+  <div class ="sidebar">
+    <ul class="nav nav-list">
+    <li class="nav-header">Find a Category</li>
+    <form>
+    <label></label>
+    <li><input  class="search-query span10" type="text" name="suggestion" value="" id="suggestion" /></li>
+    </form>
+    </ul>
+
+    <div id="cats">
+    </div>
+
+    {% load rango_extras %}
+    {% get_category_list %}
+  </div>
+</div>
+
 {% endblock %}
 {% block content %}
-    <div class="page-heading">
-        <h1>This is the index page</h1>
+<div class="col-md-9">
+    <div class="main">
+      <div class="page-heading">
+          <h1>This is the index page</h1>
+      </div>
+          {% if user.is_authenticated %}
+          <h1>Welcome, {{ user.username }}</h1>
+          <a href="{% url 'rango:add_category' %}" class="btn btn-primary">Add a New Category</a>
+          {% endif %}
+      <div class = "row">
+          <div class = "col-md-6">
+              {% if categories %}
+              <h3>Top Categories</h3>
+                  <ul class="category-list">
+                      {% for item in categories %}
+                      <!-- Following line changed to add an HTML hyperlink -->
+                      <li><a href="{% url 'rango:category' item.slug %}" class="link">{{ item.name }}</a></li>
+                      {% endfor %}
+                  </ul>
+              {% endif %}
+          </div>
+          <div class = "col-md-6">
+              {% if most_viewed_page %}
+              <h3>Most Viewed page</h3>
+              <ul class="page-list">
+                  {% for page in most_viewed_page %}
+                  <li><a href="{% url 'rango:goto' %}?page_id={{page.id}}" class="link">{{page.title}}</a> {{page.views}} views</li>
+                  {% endfor %}
+              </ul>
+              {% endif %}
+          </div>
+      </div>
     </div>
-        {% if user.is_authenticated %}
-        <h1>Welcome, {{ user.username }}</h1>
-        {% endif %}
-    <div class = "row">
-        <div class = "col-md-4">
-            {% if categories %}
-            <h3>Top Categories</h3>
-                <ul>
-                    {% for item in categories %}
-                    <!-- Following line changed to add an HTML hyperlink -->
-                    <li><a href="{% url 'rango:category' item.slug %}">{{ item.name }}</a></li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-        </div>
-        <div class = "col-md-pull-1 col-md-4 ">
-            {% if most_viewed_page %}
-            <h3>Most Viewed page</h3>
-            <ul>
-                {% for page in most_viewed_page %}
-                <li><a href="{% url 'rango:goto' %}?page_id={{page.id}}">{{page.title}}</a> {{page.views}} views</li>
-                {% endfor %}
-            </ul>
-            {% endif %}
-        </div>
-    </div>
+</div>
+
 {% endblock %}

@@ -1,10 +1,66 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
 body{
     background: #fff;
     padding: 70px 0px 30px 0px;
+    font-family: 'Roboto', sans-serif;
+}
+img{
+  max-width: 100%;
+    height: auto;
+    width: auto
+}
+ul{
+  padding: 0;
+}
+title{
+  text-transform: capitalize;
+}
+@media screen and (max-width: 991px) {
+  .xs-text-center{
+    text-align : center;
+  }
+  .sidebar{
+    text-align: center;
+  }
+}
+.no-bullet{
+  list-style-type: none;
 }
 .active{
     background: #cacad2;
 }
+.main{
+  text-align:center;
+}
 .edit{
   margin-bottom:20px;
+}
+.main, .sidebar{
+  background: ghostwhite;
+  border: 1px solid antiquewhite;
+  padding: 20px;
+}
+.sidebar{
+  padding: 20px;
+}
+.category-list, .page-list, .user-list{
+  list-style-type: none;
+}
+.profile-pic{
+  margin-bottom: 20px;
+  width: 200px;
+  height: 200px;
+}
+.link{
+  color: #483c3c;
+  font-weight: bold;
+  transition: 0.2s ease-in-out all;
+}
+.link:hover{
+  color: #337ab7;
+  transition: 0.2s ease-in-out all;
+}
+.dropdown-toggle{
+  text-transform: capitalize;
 }

@@ -2,24 +2,53 @@
 {% load static %}
 
 {% block title %}{{user}}{% endblock %}
+
+{% block sidebar %}
+  <div class = "col-md-3 col-xs-12">
+    <div class ="sidebar">
+  {% if len_users > 1 %}
+      <h2>list of other users</h2>
+    {% if all_users %}
+    <ul class="user-list">
+      {% for username in all_users %}
+        {% if not username == curr_user %}
+          <li><a href = "{% url 'rango:profile_page' username %}">{{ username }}</a></li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+    {% endif %}
+  {% else %}
+    <h2>No other users</h2>
+  {% endif %}
+  </div>
+</div>
+{% endblock %}
+
 {% block content %}
-        <div class="page-header"><h1>Profile page - {{user}}</h1></div>
+{% if len_users > 1 %}
+<div class="col-md-9 col-xs-12">
+{% else %}
+<div class="col-md-12">
+{% endif %}
+  <div class="main">
+    <div class="page-header">
+      <h1>Profile page - {{user}}</h1>
+    </div>
 
-        <div class="container">
-          {% if user.is_authenticated %}
-            {% if user ==  curr_user %}
-              <div class = "row">
-                <a href = "{% url 'rango:edit_profile' %}" class = "btn btn-primary edit" style="margin-bottom:20px">Edit</a>
-              </div>
-            {% endif %}
-
-            <div class = "row">
-              <img src = "/media/{{ profile.picture }}" alt = 'cat' height="150" width="150" style="margin-bottom:20px"/>
-              <p>Name: {{user.first_name}} {{user.last_name}}</p>
-              <p>Username: {{user.username}}</p>
-              <p>Email Address: {{user.email}}</p>
-              <p>Website: {{profile.website}}</p>
-            </div>
-          {% endif %}
+      {% if user.is_authenticated %}
+        {% if user ==  curr_user %}
+        <div class = "row">
+          <a href = "{% url 'rango:edit_profile' %}" class = "btn btn-primary edit" style="margin-bottom:20px">Edit</a>
         </div>
+        {% endif %}
+        <div class = "row">
+          <img src = "/media/{{ profile.picture }}" alt = 'cat' class="profile-pic"/>
+          <p>Name: {{user.first_name}} {{user.last_name}}</p>
+          <p>Username: {{user.username}}</p>
+          <p>Email Address: {{user.email}}</p>
+          <p>Website: {{profile.website}}</p>
+        </div>
+      {% endif %}
+  </div>
+</div>
 {% endblock %}

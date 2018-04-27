@@ -1,31 +1,70 @@
 {% extends 'base.html' %}
 
 {% block title %}Category{% endblock %}
+
+{% block sidebar %}
+<div class = "col-md-3">
+  <div class ="sidebar">
+    <ul class="nav nav-list">
+    <li class="nav-header">Find a Category</li>
+    <form>
+    <label></label>
+    <li><input  class="search-query span10" type="text" name="suggestion" value="" id="suggestion" /></li>
+    </form>
+    </ul>
+
+    <div id="cats">
+    </div>
+  </div>
+</div>
+{% endblock %}
+
 {% block content %}
     {% if category %}
+    <div class="col-md-9">
+        <div class="main">
         <h1>{{ category_name }}</h1>
+        <p>
+
+        <strong id="like_count">{{ category.likes }}</strong> people like this category
         {% if user.is_authenticated %}
-        <button type="button" id = like value="like">
-        <a href="{% url 'rango:add_page' category.slug  %}">Add Page</a>
+                <button id="likes" data-catid="{{category.id}}" class="btn btn-primary" type="button">
+                <span class="glyphicon glyphicon-thumbs-up"></span>Like
+                </button>
+        </p>
+
+        <a href="{% url 'rango:add_page' category.slug  %}" class="link">Add Page</a>
         {% endif %}
         {% if pages %}
-            <ul>
+            <ul class = "page-list">
                 {% for page in pages %}
-                <li><a href="{% url 'rango:goto' %}?page_id={{page.id}}">{{ page.title }}</a></li>
-                <p>
-
-                <strong id="like_count">{{ category.likes }}</strong> people like this category
-                {% if user.is_authenticated %}
-                        <button id="likes" data-catid="{{category.id}}" class="btn btn-primary" type="button">
-                        <span class="glyphicon glyphicon-thumbs-up"></span>Like
-                        </button>
-                {% endif %}
-                </p>
+                <li><a href="{% url 'rango:goto' %}?page_id={{page.id}}" class="link">{{ page.title }}</a></li>
                 {% endfor %}
             </ul>
         {% else %}
                 <strong>No pages currently in category.</strong>
         {% endif %}
+
+        <h1>Search</h1>
+        <div class="search">
+          <gcse:searchbox></gcse:searchbox>
+        </div>
+        <div name = 'result'>
+          <gcse:searchresults></gcse:searchresults>
+        </div>
+      </div>
+    </div>
+        <script>
+          (function() {
+            var cx = '014267998000575703565:h4nzxhmqt6c';
+            var gcse = document.createElement('script');
+            gcse.type = 'text/javascript';
+            gcse.async = true;
+            gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(gcse, s);
+          })();
+        </script>
     {% else %}
     The specified category {{ category_name }} does not exist!
     {% endif %}

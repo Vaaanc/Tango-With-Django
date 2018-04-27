@@ -3,29 +3,33 @@
 {% block title %}Register{% endblock %}
 
 {% block content %}
-<h2 class="form-signin-heading">Register Here</h2>
-<form method="post" action=".">
-    {% csrf_token %}
-    <div class="form-group">
-        <label for="id_username">Username:</label>
-        <input type="text" class="form-control"maxlength="30" name="username" type="text"  placeholder="Enter username" required>
-    </div>
-    <div class="form-group">
-        <label for="id_email">E-mail:</label>
-        <input class="form-control" id="id_email" name="email" type="email" placeholder="Enter email" required />
-    </div>
-    <div class="form-group">
-        <label for="id_password1">Password:</label>
-        <input class="form-control" id="id_password1" name="password1" type="password" placeholder="Enter password" required />
-    </div>
-    <div class="form-group">
-        <label for="id_password2">Repeat Password:</label>
-        <input class="form-control" id="id_password2" name="password2" type="password" placeholder="Enter password again" required/>
-    </div>
-    {% for x in form %}
-    {{ x.errors }}
-    {% endfor %}
+<div class="col-md-12">
+  <div class="main">
+    <h2 class="form-signin-heading">Register Here</h2>
+    <form method="post" action=".">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="id_username">Username:</label>
+            <input type="text" class="form-control"maxlength="30" name="username" type="text"  placeholder="Enter username" required>
+        </div>
+        <div class="form-group">
+            <label for="id_email">E-mail:</label>
+            <input class="form-control" id="id_email" name="email" type="email" placeholder="Enter email" required />
+        </div>
+        <div class="form-group">
+            <label for="id_password1">Password:</label>
+            <input class="form-control" id="id_password1" name="password1" type="password" placeholder="Enter password" required />
+        </div>
+        <div class="form-group">
+            <label for="id_password2">Repeat Password:</label>
+            <input class="form-control" id="id_password2" name="password2" type="password" placeholder="Enter password again" required/>
+        </div>
+        {% for x in form %}
+        {{ x.errors }}
+        {% endfor %}
 
-    <button type="submit" class="btn btn-default">Submit</button>
-</form>
+        <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+  </div>
+</div>
 {% endblock %}

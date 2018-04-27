@@ -210,6 +210,10 @@ def track_url(request):
             get_post = Page.objects.get(id = page_id)
             url = get_post.url
             get_post.views += 1
+            if get_post.first_visit:
+                get_post.last_visit = datetime.now()
+            else:
+                get_post.first_visit = datetime.now()
             get_post.save()
             return redirect(url)
         else:
@@ -218,12 +222,16 @@ def track_url(request):
 def profile_page(request, username):
     context = {}
     users = User.objects.get(username = username)
+    all_users = User.objects.all()
+    get_all = len(all_users)
     if(UserProfile.objects.all() > 0):
         profile = UserProfile.objects.get(user = users)
         context['profile'] = profile
 
     context['user'] = users
     context['curr_user'] = request.user
+    context['len_users'] = get_all
+    context['all_users'] = all_users
 
     return render(request, 'rango/profile.html', context)
 
@@ -288,3 +296,24 @@ def suggest_category(request):
     cat_list = get_category_list(8, starts_with)
     print 'suggest_category -', cat_list
     return render(request, 'rango/cats.html', {'cats': cat_list })
+
+@login_required
+def auto_add_page(request):
+    cat_id = None
+    url = None
+    title = None
+    context_dict = {}
+    if request.method == 'GET':
+        cat_id = request.GET['category_id']
+        url = request.GET['url']
+        title = request.GET['title']
+        if cat_id:
+            category = Category.objects.get(id=int(cat_id))
+            p = Page.objects.get_or_create(category=category, title=title, url=url)
+
+            pages = Page.objects.filter(category=category).order_by('-views')
+
+            # Adds our results list to the template context under name pages.
+            context_dict['pages'] = pages
+
+    return render(request, 'rango/page_list.html', context_dict)

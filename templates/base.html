@@ -30,18 +30,28 @@
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="{% url 'rango:index' %}">Home</a></li>
+                        <li><a href="{% url 'rango:index' %}" class="nav-link">Home</a></li>
                         <li><a href="{% url 'rango:about'%}">About</a></li>
                         {% if user.is_authenticated %}
+                        <li class="dropdown">
+                          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{user}}<span class="caret"></span></a>
+                          <ul class="dropdown-menu">
+                            <li><a href="{% url 'rango:profile_page' user %}" class="nav-link">Profile</a></li>
+                            <li><a href="{% url 'rango:restricted' %}" class="nav-link">Restricted Page</a></li>
+                            <li><a href="{% url 'auth_password_change' %}" class="nav-link">Change Password</a></li>
+                            <li><a href="{% url 'auth_logout' %}" class="nav-link">Logout</a></li>
+                          </ul>
+                        </li>
+                        {% else %}
+                        <li><a href="{% url 'auth_login' %}" class="nav-link">Login</a></li>
+                        <li><a href="{% url 'registration_register' %}" class="nav-link">Register Here</a></li>
+                        {% endif %}
+                        <!--
                         <li><a href="{% url 'rango:profile_page' user %}">Profile</a></li>
-                        <li><a href="{% url 'rango:add_category' %}">Add a New Category</a></li>
                         <li><a href="{% url 'rango:restricted' %}">Restricted Page</a></li>
                         <li><a href="{% url 'auth_logout' %}">Logout</a></li>
                         <li><a href="{% url 'auth_password_change' %}">Change Password</a></li>
-                        {% else %}
-                        <li><a href="{% url 'registration_register' %}">Register Here</a></li>
-                        <li><a href="{% url 'auth_login' %}">Login</a></li>
-                        {% endif %}
+                        -->
                     </ul>
                 </div>
             </div>
@@ -49,32 +59,13 @@
 
         <div class="container">
             <div class="row">
-                <div class = "col-sm-3 col-md-3">
-                    <div class ="sidebar">
-                        {% load rango_extras %}
+              {% load rango_extras %}
 
+              {% block sidebar %}
+              {% endblock %}
 
-                        {% block sidebar %}{% endblock %}
-
-                          <ul class="nav nav-list">
-                          <li class="nav-header">Find a Category</li>
-                          <form>
-                          <label></label>
-                          <li><input  class="search-query span10" type="text" name="suggestion" value="" id="suggestion" /></li>
-                          </form>
-                          </ul>
-
-                          <div id="cats">
-                          </div>
-                          
-                    </div>
-
-                </div>
-                <div class="col-sm-9  col-md-9">
-                    <div class="main">
-                        {% block content %}{% endblock %}
-                    </div>
-                </div>
+              {% block content %}
+              {% endblock %}
             </div>
         </div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

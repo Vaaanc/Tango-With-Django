@@ -3,10 +3,12 @@
 {% block title %}Register{% endblock %}
 
 {% block content %}
+<div class="col-md-12">
+  <div class="main">
     <h1>Register</h1>
     {% if registered %}
     Rango says: <b>thank you for registering!</b>
-    <a href="/rango/">Return to the homepage.</a><br />
+    <a href="/rango/" class="link">Return to the homepage.</a><br />
     {% else %}
     Rango says: <strong>register here!</strong><br />
         <form id="user_form" method="post" action="/rango/register/" enctype="multipart/form-data">
@@ -19,4 +21,6 @@
             <input type="submit" name="submit" value="Register" />
         </form>
     {% endif %}
+  </div>
+</div>
 {% endblock %}

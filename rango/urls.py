@@ -19,4 +19,5 @@ urlpatterns = [
     url(r'^profile/edit', views.edit_profile, name = 'edit_profile'),
     url(r'^like_category/$', views.like_category, name = 'likes_category'),
     url(r'^suggest_category/$', views.suggest_category, name='suggest_category'),
+    url(r'^auto_add_page/$', views.auto_add_page, name='auto_add_page'),
 ]
