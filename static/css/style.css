@@ -22,6 +22,10 @@ title{
   }
   .sidebar{
     text-align: center;
+    margin-bottom: 10px;
+  }
+  .main{
+    margin-top:10px;
   }
 }
 .no-bullet{
@@ -53,12 +57,20 @@ title{
   height: 200px;
 }
 .link{
-  color: #483c3c;
+  color: #4994c1;
   font-weight: bold;
   transition: 0.2s ease-in-out all;
 }
 .link:hover{
-  color: #337ab7;
+  color: #205482;
+  transition: 0.2s ease-in-out all;
+}
+.nav-link{
+  color: #b7b7b7;
+  transition: 0.2s ease-in-out all;
+}
+.nav-link:hover{
+  color:#fff
   transition: 0.2s ease-in-out all;
 }
 .dropdown-toggle{
